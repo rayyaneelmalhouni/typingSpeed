@@ -1,1 +1,1 @@
-<h1>Typer</h1>
+<input value="Nothing for now" name="input" id="input">
