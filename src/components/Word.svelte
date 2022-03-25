@@ -1,3 +1,7 @@
+<script>
+  export let word = "";
+</script>
+
 <style>
    .word-container {
        text-align: center;
@@ -21,5 +25,5 @@
 </style>
 
 <div class="word-container">
-    <h1 class="word">someting jj</h1>
+    <h1 class="word">{word}</h1>
 </div>

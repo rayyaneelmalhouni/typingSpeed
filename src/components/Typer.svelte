@@ -1,3 +1,20 @@
+<script>
+    import { createEventDispatcher } from "svelte";
+    export let word = "";
+    const dispatch = createEventDispatcher();
+    let texty = "";
+    function send() {
+        dispatch("message", {
+            text: texty
+        })
+        if (texty === word) {
+            texty = "";
+        }
+    }
+    
+   
+</script>
+
 <style>
     .input {
         padding: 5px 10px;
@@ -29,4 +46,4 @@
     }
 </style>
 
-<div class="input-container" ><input placeholder="Type..." spellcheck="false" class="input"  name="input" id="input"></div>
+<div class="input-container" ><input bind:value={texty} on:keyup={send} placeholder="Type..." spellcheck="false" class="input"  name="input" id="input"></div>
