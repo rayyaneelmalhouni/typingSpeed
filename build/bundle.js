@@ -423,15 +423,16 @@ var app = (function () {
     }
 
     function instance$2($$self, $$props, $$invalidate) {
+    	let textyy;
     	let { word = "" } = $$props;
     	let { appreciation = "" } = $$props;
     	const dispatch = createEventDispatcher();
     	let texty = "";
 
     	function send() {
-    		dispatch("message", { text: texty });
+    		dispatch("message", { text: textyy });
 
-    		if (texty === word || appreciation !== "") {
+    		if (textyy === word || appreciation !== "") {
     			$$invalidate(0, texty = "");
     		}
     	}
@@ -444,6 +445,12 @@ var app = (function () {
     	$$self.$$set = $$props => {
     		if ('word' in $$props) $$invalidate(2, word = $$props.word);
     		if ('appreciation' in $$props) $$invalidate(3, appreciation = $$props.appreciation);
+    	};
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*texty*/ 1) {
+    			textyy = texty.toLowerCase();
+    		}
     	};
 
     	return [texty, send, word, appreciation, input_input_handler];
