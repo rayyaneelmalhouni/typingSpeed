@@ -1,7 +1,9 @@
 <script>
     import { createEventDispatcher } from "svelte";
     export let word = "";
-    export let time = 0;
+    export let appreciation = "";
+
+
 
     const dispatch = createEventDispatcher();
     let texty = "";
@@ -9,10 +11,12 @@
         dispatch("message", {
             text: texty
         })
-        if (texty === word || time === 0) {
+        if (texty === word || appreciation !== "") {
             texty = "";
-        }
+        } 
+        
     }
+    
     
    
 </script>

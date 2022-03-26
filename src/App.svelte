@@ -5,13 +5,13 @@
    import Notice from "./components/Notice.svelte";
 
    import { onMount } from "svelte";
-   let 	text = "";
    let word = "";
    let time = 5;
    let starting = true;
    let score = 0;
    let answer = "";
    let appreciation = "";
+   let handle = "";
    let interval;
    
    let data = []
@@ -22,6 +22,7 @@
    })
    function receive(e) {
 	   appreciation = "";
+	   handle = "";
 	   answer = e.detail.text;
 	   if (starting) {
 		   score = 0;
@@ -38,37 +39,40 @@
 	   }
 	   if (answer === word && time > 0) {
 		   createWord();
-		   appreciation = "Correct"
+		   handle = "Correct"
 		   time = 5;
 		   score++;
 	   }
 	   
    }
    function lost() {
-	   console.log(score)
 	   if (score > 30) {
-		   appreciation = "Play again";
+		appreciation = "excuse me are you a boot"
 	   }
 	   else if (score > 20) {
-		   appreciation = "Good for a bigginer";
+		appreciation = "hacker";
 	   }
 	   else if (score > 15) {
-		   appreciation = "Good"
+		appreciation = "exellent";
 	   }
 	   else if (score > 10) {
-		   appreciation = "Very Good"
+		appreciation = "Very Good"
 	   }
 	   else if (score > 7) {
-			appreciation = "exellent";
+			
+		appreciation = "Good"
 	   }
 	   else if (score > 3) {
-		   appreciation = "hacker";
+		   
+		appreciation = "Good for a bigginer";
 	   }
 	   else if (score >= 0) {
-		appreciation = "excuse me are you a boot"
+		
+		appreciation = "You can do better";
 	   } else {
-		   appreciation = ""
+		appreciation = ""
 	   }
+	   
    } 
    function createWord() {
 	   let random = Math.floor(Math.random() * data.length)
@@ -104,7 +108,7 @@
 <div class="container">
 <div class="title-container"><h1 class="title">Typing Speed</h1></div>
 <Word {word}/>
-<Typer on:message={receive} {word} {time}/>
-<Score {time} {score} {appreciation}/>
+<Typer on:message={receive} {word} {appreciation}/>
+<Score {time} {score} {appreciation} {handle}/>
 <Notice />
 </div>

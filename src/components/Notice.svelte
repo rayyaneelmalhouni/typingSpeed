@@ -29,6 +29,6 @@
 
 <div class="notice-container">
     <h1 class="title">Notice</h1> 
-    <p class="notice">Type each word in the given amount of seconds to score. To play again, just type the current word. Your score
+    <p class="notice">Type each word in the given amount of seconds to score. To play again, press any key then type the current word. Your score
         will reset.</p>
 </div>
