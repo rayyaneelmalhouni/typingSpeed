@@ -7,10 +7,11 @@
    import { onMount } from "svelte";
    let 	text = "";
    let word = "";
-   let time = 0;
-   let starting = true
+   let time = 5;
+   let starting = true;
    let score = 0;
    let answer = "";
+   let appreciation = "";
    let interval;
    
    let data = []
@@ -20,46 +21,58 @@
 	   createWord()
    })
    function receive(e) {
-	   console.log(e.detail.text)
+	   appreciation = "";
 	   answer = e.detail.text;
-	   
 	   if (starting) {
-		start();
-		starting = false;
+		   score = 0;
+		   time = 5;
+		   interval = setInterval(() => {
+			   time--;
+			   if (time < 1) {
+		   clearInterval(interval)
+		   starting = true;
+		   lost()
+	   }
+		   }, 1000);
+		   starting = false;
+	   }
+	   if (answer === word && time > 0) {
+		   createWord();
+		   appreciation = "Correct"
+		   time = 5;
+		   score++;
 	   }
 	   
-	   if (answer === word) {
-		 createWord()
-		 win();
-		 starting = true;
-	   }
-	   if (time < 1) {
-		   lose();
-		   starting = true;
-	   }
    }
+   function lost() {
+	   console.log(score)
+	   if (score > 30) {
+		   appreciation = "Play again";
+	   }
+	   else if (score > 20) {
+		   appreciation = "Good for a bigginer";
+	   }
+	   else if (score > 15) {
+		   appreciation = "Good"
+	   }
+	   else if (score > 10) {
+		   appreciation = "Very Good"
+	   }
+	   else if (score > 7) {
+			appreciation = "exellent";
+	   }
+	   else if (score > 3) {
+		   appreciation = "hacker";
+	   }
+	   else if (score >= 0) {
+		appreciation = "excuse me are you a boot"
+	   } else {
+		   appreciation = ""
+	   }
+   } 
    function createWord() {
 	   let random = Math.floor(Math.random() * data.length)
 	   word = data[random]
-   }
-   function clearComplete() {
-	clearInput = false;
-   }
-   function start() {
-	   time = 5;
-	   interval = setInterval(() => {
-		   time--;
-	   }, 1000);
-   }
-   function win() {
-	   clearInterval(interval)
-	   time = 5;
-	   score += 1;
-   }
-   function lose() {
-	clearInterval(interval)
-	   time = 5;
-	   score = 0;
    }
 </script>
 
@@ -91,7 +104,7 @@
 <div class="container">
 <div class="title-container"><h1 class="title">Typing Speed</h1></div>
 <Word {word}/>
-<Typer on:message={receive} {word}/>
-<Score {time} {score}/>
+<Typer on:message={receive} {word} {time}/>
+<Score {time} {score} {appreciation}/>
 <Notice />
 </div>

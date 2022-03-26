@@ -1,13 +1,15 @@
 <script>
     import { createEventDispatcher } from "svelte";
     export let word = "";
+    export let time = 0;
+
     const dispatch = createEventDispatcher();
     let texty = "";
     function send() {
         dispatch("message", {
             text: texty
         })
-        if (texty === word) {
+        if (texty === word || time === 0) {
             texty = "";
         }
     }
